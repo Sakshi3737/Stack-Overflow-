@@ -5,7 +5,7 @@ import LeftSidebar from "../../Comps/LeftSideBar/LeftSidebar";
 import HomeMainbar from "../../Comps/HomeMainBar/HomeMainbar";
 import RightSidebar from "../../Comps/RightSideBar/RightSidebar";
 
-const Questions = () => {
+const Home = () => {
   return (
     <div className="home-container-1">
       <LeftSidebar />
@@ -17,4 +17,4 @@ const Questions = () => {
   );
 };
 
-export default Questions;
+export default Home;

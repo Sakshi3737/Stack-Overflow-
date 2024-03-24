@@ -1,33 +1,31 @@
-import axios from "axios";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
 
-const API = axios.create({
-  baseURL: "https://stack-overflow-flkp.onrender.com",
-  // http://localhost:5000
-});
+import Reducers from "./reducers";
 
-API.interceptors.request.use((req) => {
-  if (localStorage.getItem("Profile")) {
-    req.headers.authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("Profile")).token
-    }`;
-  }
-  return req;
-});
-export const logIn = (authData) => API.post("/user/login", authData);
-export const signUp = (authData) => API.post("/user/signup", authData);
+const store = createStore(Reducers, compose(applyMiddleware(thunk)));
 
-export const postQues = (quesData) => API.post("/questions/Ask", quesData);
-export const getAllQuestions = () => API.get("/questions/get");
-export const deleteQuestion = (id) => API.delete(`/questions/delete/${id}`);
-export const voteQues = (id, value, userId) =>
-  API.patch(`/questions/vote/${id}`, { value, userId });
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-export const postAns = (id, noOfAns, answerBody, userAns, userId) =>
-  API.patch(`/answer/post/${id}`, { noOfAns, answerBody, userAns, userId });
+root.render(
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
+);
 
-export const deleteAnswer = (id, answerId, noOfAns, userAns) =>
-  API.patch(`/answer/delete/${id}`, { answerId, noOfAns, userAns });
-
-export const getAllUsers = () => API.get("/user/getAllUsers");
-export const updateProfile = (id, updateData) =>
-  API.patch(`/user/update/${id}`, updateData);
+// Deprecated Code
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <React.StrictMode>
+//       <App />
+//     </React.StrictMode>
+//   </Provider>,
+//   document.getElementById("root")
+// );

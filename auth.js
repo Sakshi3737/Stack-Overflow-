@@ -1,13 +1,14 @@
-import mongoose from "mongoose";
+const authReducer = (state = { data: null }, action) => {
+  switch (action.type) {
+    case "AUTH":
+      localStorage.setItem("Profile", JSON.stringify({ ...action?.data }));
+      return { ...state, data: action?.data };
+    case "LOGOUT":
+      localStorage.clear();
+      return { ...state, data: null };
+    default:
+      return state;
+  }
+};
 
-const userSchema = mongoose.Schema({
-  picture: { type: String },
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  about: { type: String },
-  tags: { type: [String] },
-  joinedOn: { type: Date, default: Date.now },
-});
-
-export default mongoose.model("User", userSchema);
+export default authReducer;

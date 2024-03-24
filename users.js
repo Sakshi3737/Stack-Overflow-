@@ -1,15 +1,14 @@
-import express from "express";
+const usersReducer = (states = [], action) => {
+  switch (action.type) {
+    case "FETCH_USERS":
+      return action.payload;
+    case "UPDATE_CURRENT_USER":
+      return states.map((state) =>
+        state._id === action.payload._id ? action.payload : state
+      );
+    default:
+      return states;
+  }
+};
 
-import { login, signup } from "../controllers/auth.js";
-import { getAllUsers, updateProfile } from "../controllers/Users.js";
-import auth from "../middlewares/auth.js";
-
-const router = express.Router();
-
-router.post("/signup", signup);
-router.post("/login", login);
-
-router.get("/getAllUsers", getAllUsers);
-router.patch("/update/:id", auth, updateProfile);
-
-export default router;
+export default usersReducer;

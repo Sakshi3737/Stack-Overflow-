@@ -1,20 +1,18 @@
 import React from "react";
-
-import "../../App.css";
 import LeftSidebar from "../../Comps/LeftSideBar/LeftSidebar";
-import HomeMainbar from "../../Comps/HomeMainBar/HomeMainbar";
 import RightSidebar from "../../Comps/RightSideBar/RightSidebar";
+import QuesDetails from "./QuesDetails";
 
-const Questions = () => {
+const DisplayQues = () => {
   return (
     <div className="home-container-1">
       <LeftSidebar />
       <div className="home-container-2">
-        <HomeMainbar />
+        <QuesDetails />
         <RightSidebar />
       </div>
     </div>
   );
 };
 
-export default Questions;
+export default DisplayQues;
